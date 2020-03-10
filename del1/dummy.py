@@ -5,9 +5,20 @@ Created on Mon Mar  9 22:08:22 2020
 @author: Jørgen
 """
 
-doors = [False for i in range(1024)]
-for i in range(1024):
-    for j in range(i, 1024, i + 1):
-        doors[j] = not doors[j]
-doors = [i + 1 for i in range(1024) if doors[i]]
-print(doors)
+import itertools as it
+
+#
+# Task 5
+#
+# Ten people numbered 1,2,..10 are placed randomly in a queue.
+# Calculate the probability (using list comprehension and itertools) of 
+# person 1 being next to person 10 (directly infront of or directly behind) in the queue
+
+
+
+people = list(range(10))
+sample = list(it.permutations(people, 10))
+
+event = [x for x in sample]
+
+print("The probability is: ", len(event), "/", len(sample), "=", len(event)/len(sample))

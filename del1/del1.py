@@ -55,30 +55,43 @@ print("The probability is: ", len(event), "/", len(sample), "=", \
 #
 
 deck = list(range(52))
-sample = list(it.combinations(deck, 4))
+sample = list(it.combinations(deck, 5))
 
 suit  = lambda n : n % 4
 value = lambda n : n % 13
 
-event = 0;
+def numVal(hand, number):
+    placeholder = [0 for x in range(13)]
+    for card in hand:
+        placeholder[value(card)] +=1
+        if(placeholder[value(card)] == number): return True
+    return False
 
-def checkPair(hand, cardNum, avoidCard):
-    return len([card for card in hand if value(card) == cardNum and value(card) != avoidCard])
+event = [x for x in sample if(numVal(x, 3) and numVal(x, 2))]
 
-def checkThree(hand, cardNum):
-    return len([card for card in hand if value(card) == cardNum])
 
-def event():
-    sum = 0
-    for x in range(13):
-        three = [hand for hand in sample if checkThree(hand, x) == 4]       
-        for y in range(13):
-            two = [hand for hand in three if checkPair(hand, y, x) == 2]
-        sum += len(two)
-    return sum
+print("The probability is: ", len(event), "/", len(sample), "=", len(event)/len(sample))
 
-event += event()
 
-print("The probability is: ", event, "/", len(sample), "=")
+
+#
+# Task 4
+#
+# Calculate the probability (using list comprehension and itertools) 
+# of drawing four jacks in a hand of five cards from a normal playing deck of 52 cards.
+
+deck = list(range(52))
+sample = list(it.combinations(deck, 5))
+
+suit  = lambda n : n % 4
+value = lambda n : n % 13
+
+def numJacks(hand):
+    return len([x for x in hand if value(x) == 11])
+        
+event = [x for x in sample if numJacks(x) >= 4]
+
+print("The probability is: ", len(event), "/", len(sample), "=", len(event)/len(sample))
+
 
 
